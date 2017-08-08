@@ -13,26 +13,22 @@
 NAME = fdf
 
 CC = gcc
-
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
-
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-
 INC = includes/
 
 LIBFT_INC = libft/includes/
-
 LIBFT = libft/libft.a
 
 MLX = minilibx_macos/
 
 SRC_DIR = src/
-
 SRC =		fdf.c fdf_color.c fdf_fieldkey.c fdf_movement.c fdf_pntcxt.c
 
 OBJ_DIR = build/
-
 OBJ = $(SRC:.c=.o)
+
+MAP_DIR = maps/
 
 all: $(NAME)
 
@@ -45,6 +41,8 @@ $(NAME):
 			@mv $(OBJ) build/
 			$(CC) $(CFLAGS) $(MLXFLAGS) -o $(NAME) -I$(LIBFT_INC) $(LIBFT) \
 				-I$(MLX) -L$(MLX) -I$(INC) $(addprefix build/, $(OBJ))
+			@mkdir -p $(MAP_DIR)
+			@tar -xf test_maps.zip -C $(MAP_DIR)
 			@echo 'compile fdf'
 
 clean:
